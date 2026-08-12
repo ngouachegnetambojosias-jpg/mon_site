@@ -1,14 +1,13 @@
 <?php
 session_start();
 
-$host = "mysql-241da189-ngouachegnetambojosias-5bf2.e.aivencloud.com";
-$port = "14350";
-$user = "avnadmin";
-$pass = "AVNS_psIyW88G81zuO80_aHb";
-$dbname = "defaultdb";
+$host = getenv('DB_HOST') ?: "mysql-241da189-ngouachegnetambojosias-5bf2.e.aivencloud.com";
+$port = getenv('DB_PORT') ?: "14350";
+$user = getenv('DB_USER') ?: "avnadmin";
+$pass = getenv('DB_PASS'); // Récupéré depuis l'environnement Render
+$dbname = getenv('DB_NAME') ?: "defaultdb";
 
 try {
-    // Note : Aiven exige une connexion SSL
     $options = [
         PDO::MYSQL_ATTR_SSL_CA => true,
         PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
