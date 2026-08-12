@@ -4,7 +4,7 @@ session_start();
 $host = "mysql-241da189-ngouachegnetambojosias-5bf2.e.aivencloud.com";
 $port = "14350";
 $user = "avnadmin";
-$pass = "AVNS_psIyW88G81zuO80_aHb"; // Remplacez par le mot de passe exact affiché actuellement sur Aiven
+$pass = "AVNS_5OV4jSENQM-HdkjtOny"; 
 $dbname = "defaultdb";
 
 try {
