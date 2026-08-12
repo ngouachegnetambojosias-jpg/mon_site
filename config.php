@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-$host = getenv('DB_HOST') ?: "mysql-241da189-ngouachegnetambojosias-5bf2.e.aivencloud.com";
-$port = getenv('DB_PORT') ?: "14350";
-$user = getenv('DB_USER') ?: "avnadmin";
-$pass = getenv('DB_PASS'); // Récupéré depuis l'environnement Render
-$dbname = getenv('DB_NAME') ?: "defaultdb";
+$host = "mysql-241da189-ngouachegnetambojosias-5bf2.e.aivencloud.com";
+$port = "14350";
+$user = "avnadmin";
+$pass = "AVNS_psIyW88G81zuO80_aHb"; // Remplacez par le mot de passe exact affiché actuellement sur Aiven
+$dbname = "defaultdb";
 
 try {
     $options = [
