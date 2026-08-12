@@ -1,15 +1,22 @@
 <?php
 session_start();
 
-$host = "VOTRE_HOST_MYSQL";
-$user = "VOTRE_UTILISATEUR";
-$pass = "VOTRE_MOT_DE_PASSE";
-$dbname = "VOTRE_BDD";
+$host = "mysql-241da189-ngouachegnetambojosias-5bf2.e.aivencloud.com";
+$port = "14350";
+$user = "avnadmin";
+$pass = "AVNS_psIyW88G81zuO80_aHb";
+$dbname = "defaultdb";
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Note : Aiven exige une connexion SSL
+    $options = [
+        PDO::MYSQL_ATTR_SSL_CA => true,
+        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ];
+
+    $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $user, $pass, $options);
 } catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
+    die("Erreur de connexion BDD : " . $e->getMessage());
 }
 ?>
