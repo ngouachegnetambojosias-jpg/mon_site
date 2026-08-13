@@ -3,27 +3,25 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Récupération des variables d'environnement de Render
-$host = getenv('DB_HOST');
-$port = getenv('DB_PORT') ?: '3306';
-$dbname = getenv('DB_NAME');
-$user = getenv('DB_USER');
-$pass = getenv('DB_PASS');
-
-// Vérification si les variables sont définies
-if (!$host || !$dbname || !$user) {
-    die("Erreur : Les variables d'environnement de la base de données ne sont pas configurées sur Render.");
-}
+$host = getenv('DB_HOST') ?: 'mysql-241da189-ngouachegnetambojosias-5bf2.e.aivencloud.com';
+$port = getenv('DB_PORT') ?: '14350';
+$dbname = getenv('DB_NAME') ?: 'defaultdb';
+$user = getenv('DB_USER') ?: 'avnadmin';
+$pass = getenv('DB_PASS') ?: 'AVNS_50V4jSENQM-Hdkjt0ny';
 
 $pdo = null;
 
 try {
     $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4";
-    $pdo = new PDO($dsn, $user, $pass, [
+    $options = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_TIMEOUT => 5
-    ]);
+        // Active le mode SSL pour Aiven
+        PDO::MYSQL_ATTR_SSL_CA => true,
+        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false
+    ];
+    
+    $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (PDOException $e) {
     die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
