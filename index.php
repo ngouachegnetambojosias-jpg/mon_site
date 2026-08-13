@@ -1,5 +1,4 @@
 <?php
-  // Vous pouvez ajouter du code PHP ici si nécessaire (ex: gestion de session, inclusions)
   $pageTitle = "Deutsch Lernen & B1 Simulator";
 ?>
 <!DOCTYPE html>
@@ -9,118 +8,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo $pageTitle; ?></title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      background-color: #f4f6f9;
-      color: #333;
-    }
-    header {
-      background-color: #0056b3;
-      color: #fff;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h1 {
-      font-size: 1.5rem;
-    }
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 20px;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.2s;
-    }
-    nav a:hover {
-      color: #ffcc00;
-    }
-    .btn-link {
-      background-color: #ffcc00;
-      color: #0056b3;
-      padding: 8px 15px;
-      border-radius: 4px;
-    }
-    .btn-link:hover {
-      background-color: #e6b800;
-      color: #003d80;
-    }
-    main {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    .hero {
-      background: #fff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .hero h2 {
-      margin-bottom: 15px;
-      color: #0056b3;
-    }
-    .modules-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      border-left: 5px solid #0056b3;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    .card h3 {
-      margin-bottom: 10px;
-    }
-    .card a {
-      display: inline-block;
-      margin-top: 15px;
-      color: #0056b3;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    .card a:hover {
-      text-decoration: underline;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-      background-color: #222;
-      color: #fff;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; line-height: 1.6; background-color: #f4f6f9; color: #333; }
+    header { background-color: #0056b3; color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { font-size: 1.5rem; }
+    nav ul { display: flex; list-style: none; gap: 20px; }
+    nav a { color: #fff; text-decoration: none; font-weight: bold; }
+    .btn-link { background-color: #ffcc00; color: #0056b3; padding: 8px 15px; border-radius: 4px; cursor: pointer; border: none; font-weight: bold; }
+    .btn-link:hover { background-color: #e6b800; color: #003d80; }
+    
+    main { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+    .hero { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); text-align: center; margin-bottom: 30px; }
+    .hero h2 { margin-bottom: 15px; color: #0056b3; }
+    
+    .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .card { background: #fff; padding: 20px; border-radius: 8px; border-left: 5px solid #0056b3; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .card h3 { margin-bottom: 10px; }
+    .btn-pay { display: inline-block; margin-top: 15px; background: #0056b3; color: #fff; padding: 10px 18px; border-radius: 5px; text-decoration: none; font-weight: bold; border: none; cursor: pointer; }
+    .btn-pay:hover { background: #003d80; }
+
+    /* Modal Style */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+    .modal-content { background: #fff; padding: 25px; border-radius: 8px; max-width: 400px; width: 100%; position: relative; }
+    .modal h3 { margin-bottom: 15px; color: #0056b3; }
+    .form-group { margin-bottom: 15px; text-align: left; }
+    .form-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; }
+    .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+    .close-btn { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; border: none; background: none; }
+    #statusMsg { margin-top: 15px; font-weight: bold; }
+
+    footer { text-align: center; padding: 20px; margin-top: 40px; background-color: #222; color: #fff; }
   </style>
 </head>
 <body>
 
-  <!-- Barre de Navigation -->
   <header>
     <h1>Allemand Simulator</h1>
     <nav>
       <ul>
         <li><a href="index.php">Accueil</a></li>
-        <!-- Intégration du lien dans le menu -->
-        <li><a href="modelltest1.html" class="btn-link">Modelltest 1 (B1)</a></li>
+        <li><button class="btn-link" onclick="openPaymentModal()">Acheter Modelltest 1</button></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Contenu Principal -->
   <main>
     <section class="hero">
       <h2>Préparez votre examen Goethe / ÖSD B1</h2>
@@ -131,8 +62,8 @@
       <div class="card">
         <h3>Modelltest 1</h3>
         <p>Test complet incluant toutes les 4 compétences avec corrigés et fichiers audio.</p>
-        <!-- Intégration du lien dans une carte de module -->
-        <a href="modelltest1.html">Modelltest 1 (B1)</a>
+        <p><strong>Prix : 2 000 XAF</strong></p>
+        <button class="btn-pay" onclick="openPaymentModal()">Débloquer (2000 XAF)</button>
       </div>
 
       <div class="card">
@@ -143,10 +74,76 @@
     </section>
   </main>
 
-  <!-- Pied de page -->
+  <!-- Modal K-PAY -->
+  <div class="modal" id="paymentModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closePaymentModal()">&times;</button>
+      <h3>Paiement K-PAY</h3>
+      <form id="kpayForm">
+        <div class="form-group">
+          <label for="provider">Mode de Paiement</label>
+          <select id="provider" required>
+            <option value="MTN_MOMO_CMR">MTN Mobile Money</option>
+            <option value="ORANGE_MONEY_CMR">Orange Money</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Numéro de Téléphone (ex: 2376XXXXXXXX)</label>
+          <input type="tel" id="phoneNumber" placeholder="2376XXXXXXXX" required>
+        </div>
+        <button type="submit" class="btn-pay" style="width: 100%;">Payer 2000 XAF</button>
+      </form>
+      <div id="statusMsg"></div>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; <?php echo date('Y'); ?> Allemand Simulator - Tous droits réservés.</p>
   </footer>
 
+  <script>
+    function openPaymentModal() {
+      document.getElementById('paymentModal').style.display = 'flex';
+    }
+    function closePaymentModal() {
+      document.getElementById('paymentModal').style.display = 'none';
+      document.getElementById('statusMsg').innerText = '';
+    }
+
+    document.getElementById('kpayForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const statusMsg = document.getElementById('statusMsg');
+      statusMsg.style.color = '#0056b3';
+      statusMsg.innerText = "Initiation du paiement... Validez le prompt sur votre téléphone.";
+
+      const provider = document.getElementById('provider').value;
+      const phoneNumber = document.getElementById('phoneNumber').value;
+
+      try {
+        const response = await fetch('pay.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ provider, phoneNumber, amount: 2000 })
+        });
+
+        const resData = await response.json();
+
+        if (resData.success) {
+          statusMsg.style.color = 'green';
+          statusMsg.innerText = "Paiement en cours... Veuillez saisir votre code PIN sur votre téléphone.";
+          // Redirection après succès (ou gestion du statut)
+          setTimeout(() => {
+            window.location.href = "modelltest1.html";
+          }, 5000);
+        } else {
+          statusMsg.style.color = 'red';
+          statusMsg.innerText = "Erreur : " + (resData.message || "Échec de l'opération.");
+        }
+      } catch (err) {
+        statusMsg.style.color = 'red';
+        statusMsg.innerText = "Erreur de connexion au serveur.";
+      }
+    });
+  </script>
 </body>
 </html>
