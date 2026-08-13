@@ -48,12 +48,7 @@ $sections = [
     ],
     [
         'title' => 'Hören',
-        'items' => [
-            ['name' => 'Teil 1 (Audio)', 'file' => 'audio/01_041868_Uebungspruefung_1_Hoeren_Teil1.mp3'],
-            ['name' => 'Teil 2 (Audio)', 'file' => 'audio/02_041868_Uebungspruefung_1_Hoeren_Teil2.mp3'],
-            ['name' => 'Teil 3 (Audio)', 'file' => 'audio/03_041868_Uebungspruefung_1_Hoeren_Teil3.mp3'],
-            ['name' => 'Teil 4 (Audio)', 'file' => 'audio/04_041868_Uebungspruefung_1_Hoeren_Teil4.mp3']
-        ]
+        'items' => ['Teil 1', 'Teil 2', 'Teil 3']
     ]
 ];
 ?>
@@ -226,10 +221,10 @@ $sections = [
 
 <div class="container">
 
-    <!-- Bannières d'accès direct au Modelltest 1 -->
+    <!-- Accès direct et exclusif au Modelltest 1 avec audio -->
     <div class="banner-modelltest">
-        <h2>🎧 Modelltest 1 - TELC <?= $niveau ?></h2>
-        <p>Passez le test complet incluant la compréhension orale (Hören) avec fichiers audio intégrés.</p>
+        <h2>🎧 Modelltest 1 (avec Audios) - TELC <?= $niveau ?></h2>
+        <p>Passez le Test 1 complet incluant la partie audio (Hören Teil 1 à 4).</p>
         <a href="modelltest1.html" class="btn-modelltest">Lancer le Modelltest 1</a>
     </div>
 
@@ -238,15 +233,9 @@ $sections = [
             <h2 class="section-title"><?= htmlspecialchars($sec['title']) ?></h2>
             <div class="items-grid">
                 <?php foreach ($sec['items'] as $item): ?>
-                    <?php if (is_array($item)): ?>
-                        <a href="<?= htmlspecialchars($item['file']) ?>" target="_blank" class="item-card">
-                            🎵 <?= htmlspecialchars($item['name']) ?>
-                        </a>
-                    <?php else: ?>
-                        <a href="quiz.php?niveau=<?= strtolower($niveau) ?>&sujet=<?= urlencode($item) ?>" class="item-card">
-                            <?= htmlspecialchars($item) ?>
-                        </a>
-                    <?php endif; ?>
+                    <a href="quiz.php?niveau=<?= strtolower($niveau) ?>&sujet=<?= urlencode($item) ?>" class="item-card">
+                        <?= htmlspecialchars($item) ?>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>
