@@ -1,11 +1,11 @@
 <?php
 header('Content-Type: application/json');
 
-// 1. Vos clés d'API (Récupérées depuis votre console K-PAY)
-$apiKey = "kpay_test_VOTRE_API_KEY";      // Remplacez par votre clé
-$secretKey = "sk_test_VOTRE_SECRET_KEY";  // Remplacez par votre clé secrète
+// Vos clés API K-PAY
+$apiKey = "kpay_test_85fa21f2fff3119a7f503c8f638ac9482559cb04c8a85a62";
+$secretKey = "c99f295492b2556109035fb43fe883e2d1fae30bf2fff7425cbae4efc15fe7d3";
 
-// 2. Lecture des données envoyées par le JS
+// Lecture des données envoyées par JavaScript
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (!$input || empty($input['phoneNumber']) || empty($input['provider'])) {
@@ -15,10 +15,16 @@ if (!$input || empty($input['phoneNumber']) || empty($input['provider'])) {
 
 $amount = isset($input['amount']) ? (int)$input['amount'] : 2000;
 $phoneNumber = preg_replace('/[^0-9]/', '', $input['phoneNumber']);
+
+// Formatage automatique pour le Cameroun (ajout du 237 si 9 chiffres saisis)
+if (strlen($phoneNumber) === 9) {
+    $phoneNumber = "237" . $phoneNumber;
+}
+
 $provider = $input['provider'];
 $externalId = "B1-TEST1-" . time();
 
-// 3. Préparation du payload K-PAY
+// Préparation du payload K-PAY
 $payload = [
     "amount" => $amount,
     "provider" => $provider,
@@ -26,7 +32,7 @@ $payload = [
     "externalId" => $externalId
 ];
 
-// 4. Appel cURL vers K-PAY
+// Requete cURL vers l'API K-PAY
 $ch = curl_init("https://admin.kpay.site/api/v1/payments/init");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
