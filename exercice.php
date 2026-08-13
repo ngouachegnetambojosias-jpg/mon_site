@@ -48,7 +48,12 @@ $sections = [
     ],
     [
         'title' => 'Hören',
-        'items' => ['Teil 1', 'Teil 2', 'Teil 3']
+        'items' => [
+            ['name' => 'Teil 1 (Audio)', 'file' => 'audio/01_041868_Uebungspruefung_1_Hoeren_Teil1.mp3'],
+            ['name' => 'Teil 2 (Audio)', 'file' => 'audio/02_041868_Uebungspruefung_1_Hoeren_Teil2.mp3'],
+            ['name' => 'Teil 3 (Audio)', 'file' => 'audio/03_041868_Uebungspruefung_1_Hoeren_Teil3.mp3'],
+            ['name' => 'Teil 4 (Audio)', 'file' => 'audio/04_041868_Uebungspruefung_1_Hoeren_Teil4.mp3']
+        ]
     ]
 ];
 ?>
@@ -121,6 +126,39 @@ $sections = [
             padding: 0 20px 60px;
             width: 100%;
         }
+        .banner-modelltest {
+            background: linear-gradient(135deg, #10ac84 0%, #1dd1a1 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 35px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .banner-modelltest h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        .banner-modelltest p {
+            margin-bottom: 20px;
+            font-size: 15px;
+            opacity: 0.9;
+        }
+        .btn-modelltest {
+            background-color: #ffffff;
+            color: #10ac84;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 16px;
+            display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-modelltest:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
         .section-box {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 16px;
@@ -187,14 +225,28 @@ $sections = [
 </header>
 
 <div class="container">
+
+    <!-- Bannières d'accès direct au Modelltest 1 -->
+    <div class="banner-modelltest">
+        <h2>🎧 Modelltest 1 - TELC <?= $niveau ?></h2>
+        <p>Passez le test complet incluant la compréhension orale (Hören) avec fichiers audio intégrés.</p>
+        <a href="modelltest1.html" class="btn-modelltest">Lancer le Modelltest 1</a>
+    </div>
+
     <?php foreach ($sections as $sec): ?>
         <div class="section-box">
             <h2 class="section-title"><?= htmlspecialchars($sec['title']) ?></h2>
             <div class="items-grid">
                 <?php foreach ($sec['items'] as $item): ?>
-                    <a href="quiz.php?niveau=<?= strtolower($niveau) ?>&sujet=<?= urlencode($item) ?>" class="item-card">
-                        <?= htmlspecialchars($item) ?>
-                    </a>
+                    <?php if (is_array($item)): ?>
+                        <a href="<?= htmlspecialchars($item['file']) ?>" target="_blank" class="item-card">
+                            🎵 <?= htmlspecialchars($item['name']) ?>
+                        </a>
+                    <?php else: ?>
+                        <a href="quiz.php?niveau=<?= strtolower($niveau) ?>&sujet=<?= urlencode($item) ?>" class="item-card">
+                            <?= htmlspecialchars($item) ?>
+                        </a>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </div>
         </div>
