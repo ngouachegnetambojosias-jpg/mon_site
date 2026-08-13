@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goethe / ÖSD Zertifikat B1 - Modelltest 1</title>
+  <style>
+    /* Styles basiques pour l'interface */
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f4f6f9;
+      color: #333;
+    }
+    .simulator-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 2px solid #ccc;
+      margin-bottom: 20px;
+    }
+    .tab-link {
+      background-color: inherit;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: 0.3s;
+      border-bottom: 3px solid transparent;
+    }
+    .tab-link:hover {
+      background-color: #ddd;
+    }
+    .tab-link.active {
+      border-bottom: 3px solid #0056b3;
+      color: #0056b3;
+    }
+    .tab-content {
+      display: none;
+    }
+    .exercise-block {
+      background: #f9f9f9;
+      border-left: 4px solid #0056b3;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+    }
+    audio {
+      width: 100%;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+
+<section id="german-simulator">
+  <div class="simulator-container">
+    <h2>Zertifikat B1 - Modelltest 1</h2>
+    
+    <!-- Navigation der Prüfungsteile -->
+    <div class="tabs">
+      <button class="tab-link active" onclick="openSection(event, 'lesen')">Lesen</button>
+      <button class="tab-link" onclick="openSection(event, 'hoeren')">Hören</button>
+      <button class="tab-link" onclick="openSection(event, 'schreiben')">Schreiben</button>
+      <button class="tab-link" onclick="openSection(event, 'sprechen')">Sprechen</button>
+    </div>
+
+    <!-- Sektion: Lesen -->
+    <div id="lesen" class="tab-content" style="display: block;">
+      <h3>Modul Lesen (65 Minuten)</h3>
+      
+      <div class="exercise-block">
+        <h4>Teil 1: Arbeitsplatz und Ausland</h4>
+        <p>Lesen Sie den Text „So lebe ich“ von Clemens über seine Erfahrungen in verschiedenen Ländern und lösen Sie die Aufgaben[cite: 1].</p>
+      </div>
+      
+      <div class="exercise-block">
+        <h4>Teil 2: Artikel und Berichte</h4>
+        <p>Lesen Sie die Artikel „Ni Hao, Mama!“ und „WebStamp: persönliche Briefmarken“ und beantworten Sie die Fragen[cite: 1].</p>
+      </div>
+
+      <div class="exercise-block">
+        <h4>Teil 3: Anzeigen zuordnen</h4>
+        <p>Finden Sie die passenden Anzeigen für Personen, die Angebote für Tierliebhaber suchen[cite: 1].</p>
+      </div>
+
+      <div class="exercise-block">
+        <h4>Teil 4: Meinungen äußern</h4>
+        <p>Lesen Sie Kommentare und Leserbriefe zum Thema „Kettenmails“[cite: 1].</p>
+      </div>
+
+      <div class="exercise-block">
+        <h4>Teil 5: Hausordnung und Vorschriften</h4>
+        <p>Lesen Sie die Regelungen zum Besuch des Deutschen Museums[cite: 1].</p>
+      </div>
+    </div>
+
+    <!-- Sektion: Hören -->
+    <div id="hoeren" class="tab-content">
+      <h3>Modul Hören (ca. 40 Minuten)</h3>
+      
+      <div class="exercise-block">
+        <h4>Audio-Dateien für Modelltest 1</h4>
+        <audio controls>
+          <source src="audio/modelltest1-hoeren.mp3" type="audio/mpeg">
+          Ihr Browser unterstützt kein Audio-Element.
+        </audio>
+      </div>
+
+      <ul>
+        <li><strong>Teil 1:</strong> Kurze Durchsagen und Alltagsgespräche verstehen[cite: 1].</li>
+        <li><strong>Teil 2:</strong> Informationsabend über ein Feriencamp für Schüler[cite: 1].</li>
+        <li><strong>Teil 3:</strong> Gespräch an einer Bushaltestelle über eine Geburtstagsparty[cite: 1].</li>
+        <li><strong>Teil 4:</strong> Radiodiskussion zum Thema „Workcamps“[cite: 1].</li>
+      </ul>
+    </div>
+
+    <!-- Sektion: Schreiben -->
+    <div id="schreiben" class="tab-content">
+      <h3>Modul Schreiben (60 Minuten)</h3>
+      
+      <div class="exercise-block">
+        <h4>Aufgabe 1: Informelle E-Mail</h4>
+        <p>Schreiben Sie eine E-Mail an Ihren Cousin bezüglich der Einladung zu Ihrer Abiturfeier (ca. 80 Wörter)[cite: 1].</p>
+      </div>
+
+      <div class="exercise-block">
+        <h4>Aufgabe 2: Meinungsäußerung</h4>
+        <p>Schreiben Sie einen Diskussionsbeitrag im Internet-Forum zum Thema „Freundschaft“ (ca. 80 Wörter)[cite: 1].</p>
+      </div>
+
+      <div class="exercise-block">
+        <h4>Aufgabe 3: Formelle Mitteilung</h4>
+        <p>Schreiben Sie eine Entschuldigung an die Sprachkursleitung, weil Sie den Test verpasst haben (ca. 40 Wörter)[cite: 1].</p>
+      </div>
+    </div>
+
+    <!-- Sektion: Sprechen -->
+    <div id="sprechen" class="tab-content">
+      <h3>Modul Sprechen (ca. 15 Minuten)</h3>
+      
+      <div class="exercise-block">
+        <h4>Teil 1: Gemeinsam etwas planen</h4>
+        <p>Planen Sie zusammen mit Ihrem Partner einen DVD-Abend zu Hause[cite: 1].</p>
+      </div>
+
+      <div class="exercise-block">
+        <h4>Teil 2: Präsentation halten</h4>
+        <p><strong>Kandidat A:</strong> Thema „Brauchen wir Fitnessstudios?“[cite: 1]<br>
+        <strong>Kandidat B:</strong> Thema „Brauchen Kinder Kochunterricht?“[cite: 1]</p>
+      </div>
+
+      <div class="exercise-block">
+        <h4>Teil 3: Feedback geben und Fragen stellen</h4>
+        <p>Rückmeldung zur Präsentation des Partners geben und eine Frage stellen[cite: 1].</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function openSection(evt, sectionName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tab-link");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(sectionName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+</script>
+
+</body>
+</html>
