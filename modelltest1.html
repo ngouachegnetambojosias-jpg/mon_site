@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Goethe / ÖSD Zertifikat B1 - Modelltest 1</title>
   <style>
-    /* Styles basiques pour l'interface */
+    /* Styles généraux */
     body {
       font-family: Arial, sans-serif;
       line-height: 1.6;
@@ -50,14 +50,69 @@
     .exercise-block {
       background: #f9f9f9;
       border-left: 4px solid #0056b3;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 4px;
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 6px;
     }
     audio {
       width: 100%;
-      margin: 15px 0;
+      margin: 15px 0 20px 0;
     }
+    /* Styles pour les questions */
+    .question-item {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    .question-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #1e293b;
+    }
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .option-label:hover {
+      background: #f1f5f9;
+    }
+    .btn-submit {
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover {
+      background-color: #003d80;
+    }
+    .result-box {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      display: none;
+    }
+    .correct { color: #15803d; background-color: #dcfce7; }
+    .incorrect { color: #b91c1c; background-color: #fee2e2; }
   </style>
 </head>
 <body>
@@ -111,41 +166,123 @@
       <!-- Teil 1 -->
       <div class="exercise-block">
         <h4>Teil 1: Kurze Durchsagen und Alltagsgespräche</h4>
-        <p>Hören Sie die Aufgaben 1 bis 10.</p>
+        <p>Sie hören fünf kurze Texte. Sie hören jeden Text zweimal. Wählen Sie bei jeder Aufgabe die richtige Lösung.</p>
+        
         <audio controls preload="metadata">
           <source src="audio/01_041868_Uebungspruefung_1_Hoeren_Teil_1.mp3" type="audio/mpeg">
           Ihr Browser unterstützt kein Audio-Element.
         </audio>
+
+        <form id="form-hoeren-1">
+          <!-- Aufgabe 1 -->
+          <div class="question-item">
+            <div class="question-title">1. Was wird am Bahnhof durchgesagt?</div>
+            <div class="options-group">
+              <label class="option-label"><input type="radio" name="q1" value="a"> a) Der Zug nach München fällt heute aus.</label>
+              <label class="option-label"><input type="radio" name="q1" value="b"> b) Der Zug nach München fährt von Gleis 5 ab.</label>
+              <label class="option-label"><input type="radio" name="q1" value="c"> c) Der Zug nach München hat 20 Minuten Verspätung.</label>
+            </div>
+          </div>
+
+          <!-- Aufgabe 2 -->
+          <div class="question-item">
+            <div class="question-title">2. Was möchte die Anruferin?</div>
+            <div class="options-group">
+              <label class="option-label"><input type="radio" name="q2" value="a"> a) Einen Termin beim Arzt verschieben.</label>
+              <label class="option-label"><input type="radio" name="q2" value="b"> b) Ein Rezept in der Praxis abholen.</label>
+              <label class="option-label"><input type="radio" name="q2" value="c"> c) Eine Nachricht für den Arzt hinterlassen.</label>
+            </div>
+          </div>
+
+          <button type="button" class="btn-submit" onclick="checkAnswers('form-hoeren-1', {q1: 'b', q2: 'a'}, 'res-h1')">Antworten prüfen</button>
+          <div id="res-h1" class="result-box"></div>
+        </form>
       </div>
 
       <!-- Teil 2 -->
       <div class="exercise-block">
-        <h4>Teil 2: Informationsabend über ein Feriencamp für Schüler</h4>
-        <p>Hören Sie den Text zu den Aufgaben 11 bis 15.</p>
+        <h4>Teil 2: Informationsabend über ein Feriencamp</h4>
+        <p>Sie hören einen Text. Sie hören den Text einmal. Entscheiden Sie, ob die Aussagen richtig oder falsch sind.</p>
+        
         <audio controls preload="metadata">
           <source src="audio/02_041868_Uebungspruefung_1_Hoeren_Teil_2.mp3" type="audio/mpeg">
           Ihr Browser unterstützt kein Audio-Element.
         </audio>
+
+        <form id="form-hoeren-2">
+          <!-- Aufgabe 3 -->
+          <div class="question-item">
+            <div class="question-title">3. Das Feriencamp findet dieses Jahr zum ersten Mal statt.</div>
+            <div class="options-group">
+              <label class="option-label"><input type="radio" name="q3" value="richtig"> Richtig</label>
+              <label class="option-label"><input type="radio" name="q3" value="falsch"> Falsch</label>
+            </div>
+          </div>
+
+          <!-- Aufgabe 4 -->
+          <div class="question-item">
+            <div class="question-title">4. Die Jugendlichen können am Abend zwischen verschiedenen Aktivitäten wählen.</div>
+            <div class="options-group">
+              <label class="option-label"><input type="radio" name="q4" value="richtig"> Richtig</label>
+              <label class="option-label"><input type="radio" name="q4" value="falsch"> Falsch</label>
+            </div>
+          </div>
+
+          <button type="button" class="btn-submit" onclick="checkAnswers('form-hoeren-2', {q3: 'falsch', q4: 'richtig'}, 'res-h2')">Antworten prüfen</button>
+          <div id="res-h2" class="result-box"></div>
+        </form>
       </div>
 
       <!-- Teil 3 -->
       <div class="exercise-block">
-        <h4>Teil 3: Gespräch an einer Bushaltestelle über eine Geburtstagsparty</h4>
-        <p>Hören Sie das Gespräch zu den Aufgaben 16 bis 20.</p>
+        <h4>Teil 3: Gespräch an einer Bushaltestelle</h4>
+        <p>Sie hören ein Gespräch. Sie hören das Gespräch einmal. Wählen Sie bei jeder Aufgabe die richtige Lösung.</p>
+        
         <audio controls preload="metadata">
           <source src="audio/03_041868_Uebungspruefung_1_Hoeren_Teil_3.mp3" type="audio/mpeg">
           Ihr Browser unterstützt kein Audio-Element.
         </audio>
+
+        <form id="form-hoeren-3">
+          <!-- Aufgabe 5 -->
+          <div class="question-item">
+            <div class="question-title">5. Wo findet die Geburtstagsparty statt?</div>
+            <div class="options-group">
+              <label class="option-label"><input type="radio" name="q5" value="a"> a) In einem Restaurant</label>
+              <label class="option-label"><input type="radio" name="q5" value="b"> b) Im Garten von Thomas</label>
+              <label class="option-label"><input type="radio" name="q5" value="c"> c) Bei Thomas zu Hause</label>
+            </div>
+          </div>
+
+          <button type="button" class="btn-submit" onclick="checkAnswers('form-hoeren-3', {q5: 'b'}, 'res-h3')">Antworten prüfen</button>
+          <div id="res-h3" class="result-box"></div>
+        </form>
       </div>
 
       <!-- Teil 4 -->
       <div class="exercise-block">
         <h4>Teil 4: Radiodiskussion zum Thema „Workcamps“</h4>
-        <p>Hören Sie die Diskussion zu den Aufgaben 21 bis 30.</p>
+        <p>Sie hören eine Diskussion im Radio. Sie hören die Diskussion zweimal. Wer sagt was?</p>
+        
         <audio controls preload="metadata">
           <source src="audio/04_041868_Uebungspruefung_1_Hoeren_Teil_4.mp3" type="audio/mpeg">
           Ihr Browser unterstützt kein Audio-Element.
         </audio>
+
+        <form id="form-hoeren-4">
+          <!-- Aufgabe 6 -->
+          <div class="question-item">
+            <div class="question-title">6. Workcamps bieten Jugendlichen eine tolle Möglichkeit, neue Kulturen kennenzulernen.</div>
+            <div class="options-group">
+              <label class="option-label"><input type="radio" name="q6" value="moderator"> Moderator</label>
+              <label class="option-label"><input type="radio" name="q6" value="gast1"> Herr Meyer (Experte)</label>
+              <label class="option-label"><input type="radio" name="q6" value="gast2"> Sarah (Teilnehmerin)</label>
+            </div>
+          </div>
+
+          <button type="button" class="btn-submit" onclick="checkAnswers('form-hoeren-4', {q6: 'gast2'}, 'res-h4')">Antworten prüfen</button>
+          <div id="res-h4" class="result-box"></div>
+        </form>
       </div>
     </div>
 
@@ -194,6 +331,7 @@
 </section>
 
 <script>
+  // Gestion de la navigation entre onglets
   function openSection(evt, sectionName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tab-content");
@@ -206,6 +344,30 @@
     }
     document.getElementById(sectionName).style.display = "block";
     evt.currentTarget.className += " active";
+  }
+
+  // Fonction de correction automatique des exercices Hören
+  function checkAnswers(formId, correctAnswers, resultId) {
+    const form = document.getElementById(formId);
+    let score = 0;
+    let total = Object.keys(correctAnswers).length;
+
+    for (let key in correctAnswers) {
+      const selected = form.querySelector(`input[name="${key}"]:checked`);
+      if (selected && selected.value === correctAnswers[key]) {
+        score++;
+      }
+    }
+
+    const resBox = document.getElementById(resultId);
+    resBox.style.display = "block";
+    resBox.textContent = `Ergebnis: ${score} / ${total} richtig.`;
+    
+    if (score === total) {
+      resBox.className = "result-box correct";
+    } else {
+      resBox.className = "result-box incorrect";
+    }
   }
 </script>
 
