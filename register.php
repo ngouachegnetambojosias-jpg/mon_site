@@ -1,5 +1,8 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once 'config.php';
 
 $message = '';
@@ -11,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($nom) && !empty($email) && !empty($password)) {
         try {
-            // Hachage du mot de passe pour la sécurité
+            // Hachage du mot de passe
             $hash = password_hash($password, PASSWORD_DEFAULT);
 
-            // Insertion dans la table users
+            // Insertion dans la base de données
             $stmt = $pdo->prepare("INSERT INTO users (nom, email, password) VALUES (:nom, :email, :password)");
             $stmt->execute([
                 ':nom' => $nom,
@@ -22,21 +25,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':password' => $hash
             ]);
 
-            // Message de succès et redirection vers la connexion
+            // Redirection vers la page de connexion
             $_SESSION['success'] = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
             header("Location: login.php");
             exit();
 
         } catch (PDOException $e) {
-            // Gestion de l'erreur si l'email existe déjà
             if ($e->getCode() == 23000) {
-                $message = "<p style='color: red;'>Cet email est déjà utilisé par un autre compte.</p>";
+                $message = "<p style='color: red; text-align: center;'>Cet email est déjà utilisé par un autre compte.</p>";
             } else {
-                $message = "<p style='color: red;'>Erreur : " . htmlspecialchars($e->getMessage()) . "</p>";
+                $message = "<p style='color: red; text-align: center;'>Erreur : " . htmlspecialchars($e->getMessage()) . "</p>";
             }
         }
     } else {
-        $message = "<p style='color: red;'>Veuillez remplir tous les champs.</p>";
+        $message = "<p style='color: red; text-align: center;'>Veuillez remplir tous les champs.</p>";
     }
 }
 ?>
@@ -54,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
         }
         .form-container {
@@ -64,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
+            box-sizing: border-box;
         }
         h2 {
             margin-bottom: 20px;
