@@ -1,8 +1,7 @@
 <?php
 require_once 'config.php';
 
-$error = '';
-$success = '';
+$message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = trim($_POST['nom'] ?? '');
@@ -10,62 +9,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     if (!empty($nom) && !empty($email) && !empty($password)) {
-        // Vérifier si l'email existe déjà
-        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
-        $stmt->execute([$email]);
-        
-        if ($stmt->fetch()) {
-            $error = "Cet email est déjà utilisé.";
-        } else {
-            // Hachage du mot de passe
-            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        try {
+            // Hachage du mot de passe pour la sécurité
+            $hash = password_hash($password, PASSWORD_DEFAULT);
 
-            // Insertion de l'utilisateur
-            $stmt = $pdo->prepare("INSERT INTO users (nom, email, password, is_premium) VALUES (?, ?, ?, 0)");
-            if ($stmt->execute([$nom, $email, $hashedPassword])) {
-                $success = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
+            // Insertion dans la table users (en gérant les colonnes password ou mot_de_passe)
+            $stmt = $pdo->prepare("INSERT INTO users (nom, email, password) VALUES (:nom, :email, :password)");
+            $stmt->execute([
+                ':nom' => $nom,
+                ':email' => $email,
+                ':password' => $hash
+            ]);
+
+            $message = "<p style='color: green;'>Inscription réussie ! <a href='login.php'>Se connecter</a></p>";
+        } catch (PDOException $e) {
+            // Si la colonne 'password' n'existe pas, on tente 'mot_de_passe'
+            if (strpos($e->getMessage(), "Unknown column 'password'") !== false) {
+                try {
+                    $stmt = $pdo->prepare("INSERT INTO users (nom, email, mot_de_passe) VALUES (:nom, :email, :password)");
+                    $stmt->execute([
+                        ':nom' => $nom,
+                        ':email' => $email,
+                        ':password' => $hash
+                    ]);
+                    $message = "<p style='color: green;'>Inscription réussie ! <a href='login.php'>Se connecter</a></p>";
+                } catch (PDOException $e2) {
+                    $message = "<p style='color: red;'>Erreur BDD : " . htmlspecialchars($e2->getMessage()) . "</p>";
+                }
             } else {
-                $error = "Une erreur est survenue lors de l'inscription.";
+                $message = "<p style='color: red;'>Erreur : " . htmlspecialchars($e->getMessage()) . "</p>";
             }
         }
     } else {
-        $error = "Veuillez remplir tous les champs.";
+        $message = "<p style='color: red;'>Veuillez remplir tous les champs.</p>";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Inscription - Exercices d'Allemand</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Inscription</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .form-box { max-width: 400px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        .form-box input { width: 100%; padding: 8px; margin: 8px 0; box-sizing: border-box; }
+        .form-box button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Créer un compte</h2>
+
+<div class="form-box">
+    <h2>Créer un compte</h2>
+    <?= $message ?>
+    <form action="register.php" method="POST">
+        <label>Nom :</label>
+        <input type="text" name="nom" required>
         
-        <?php if ($error): ?>
-            <p class="msg-error"><?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
+        <label>Email :</label>
+        <input type="email" name="email" required>
         
-        <?php if ($success): ?>
-            <p class="msg-success"><?= htmlspecialchars($success) ?></p>
-            <p><a href="login.php">Se connecter</a></p>
-        <?php else: ?>
-            <form action="register.php" method="POST">
-                <label for="nom">Nom complet :</label>
-                <input type="text" id="nom" name="nom" required>
+        <label>Mot de passe :</label>
+        <input type="password" name="password" required>
+        
+        <button type="submit">S'inscrire</button>
+    </form>
+</div>
 
-                <label for="email">Adresse Email :</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="password">Mot de passe :</label>
-                <input type="password" id="password" name="password" required>
-
-                <button type="submit">S'inscrire</button>
-            </form>
-            <p>Déjà inscrit ? <a href="login.php">Se connecter ici</a></p>
-        <?php endif; ?>
-    </div>
 </body>
 </html>
