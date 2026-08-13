@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'config.php';
 
 $message = '';
@@ -13,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Hachage du mot de passe pour la sécurité
             $hash = password_hash($password, PASSWORD_DEFAULT);
 
-            // Insertion dans la table users (en gérant les colonnes password ou mot_de_passe)
+            // Insertion dans la table users
             $stmt = $pdo->prepare("INSERT INTO users (nom, email, password) VALUES (:nom, :email, :password)");
             $stmt->execute([
                 ':nom' => $nom,
@@ -21,21 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':password' => $hash
             ]);
 
-            $message = "<p style='color: green;'>Inscription réussie ! <a href='login.php'>Se connecter</a></p>";
+            // Message de succès et redirection vers la connexion
+            $_SESSION['success'] = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
+            header("Location: login.php");
+            exit();
+
         } catch (PDOException $e) {
-            // Si la colonne 'password' n'existe pas, on tente 'mot_de_passe'
-            if (strpos($e->getMessage(), "Unknown column 'password'") !== false) {
-                try {
-                    $stmt = $pdo->prepare("INSERT INTO users (nom, email, mot_de_passe) VALUES (:nom, :email, :password)");
-                    $stmt->execute([
-                        ':nom' => $nom,
-                        ':email' => $email,
-                        ':password' => $hash
-                    ]);
-                    $message = "<p style='color: green;'>Inscription réussie ! <a href='login.php'>Se connecter</a></p>";
-                } catch (PDOException $e2) {
-                    $message = "<p style='color: red;'>Erreur BDD : " . htmlspecialchars($e2->getMessage()) . "</p>";
-                }
+            // Gestion de l'erreur si l'email existe déjà
+            if ($e->getCode() == 23000) {
+                $message = "<p style='color: red;'>Cet email est déjà utilisé par un autre compte.</p>";
             } else {
                 $message = "<p style='color: red;'>Erreur : " . htmlspecialchars($e->getMessage()) . "</p>";
             }
@@ -50,31 +45,92 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        .form-box { max-width: 400px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
-        .form-box input { width: 100%; padding: 8px; margin: 8px 0; box-sizing: border-box; }
-        .form-box button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+            display: block;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .login-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
-<div class="form-box">
+<div class="form-container">
     <h2>Créer un compte</h2>
+    
     <?= $message ?>
+
     <form action="register.php" method="POST">
-        <label>Nom :</label>
-        <input type="text" name="nom" required>
-        
-        <label>Email :</label>
-        <input type="email" name="email" required>
-        
-        <label>Mot de passe :</label>
-        <input type="password" name="password" required>
-        
+        <label for="nom">Nom complet :</label>
+        <input type="text" id="nom" name="nom" required placeholder="Votre nom">
+
+        <label for="email">Adresse Email :</label>
+        <input type="email" id="email" name="email" required placeholder="exemple@mail.com">
+
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password" required placeholder="••••••••">
+
         <button type="submit">S'inscrire</button>
     </form>
+
+    <a href="login.php" class="login-link">Déjà un compte ? Se connecter</a>
 </div>
 
 </body>
